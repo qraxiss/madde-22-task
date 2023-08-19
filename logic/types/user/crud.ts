@@ -3,14 +3,22 @@
  * Do not modify this file manually
  */
 
-export interface login {
-  token: string;
+export interface getUser {
+  id: string;
+}
+
+export interface getUsers {
+  ids?: string[];
+}
+
+export interface getUsersByName {
+  string: string;
 }
 
 export interface user {
   email: string;
   id: string;
   name: string;
-  permissions: any;
+  permissions?: any;
   surname: string;
 }

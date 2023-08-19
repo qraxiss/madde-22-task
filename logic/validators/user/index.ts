@@ -1,4 +1,8 @@
-import * as Joi from 'joi'
+export * from './auth'
+export * from './permission'
+export * from './crud'
+
+import Joi from 'joi'
 
 export const user = Joi.object({
     id: Joi.string().required(),
@@ -6,11 +10,4 @@ export const user = Joi.object({
     surname: Joi.string().required(),
     email: Joi.string().required(),
     permissions: Joi.any().required()
-})
-
-export const login = Joi.object({
-    //jwt token regex
-    token: Joi.string()
-        .regex(/^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+$/)
-        .required()
 })
