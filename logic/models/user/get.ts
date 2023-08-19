@@ -11,9 +11,7 @@ export async function getUser(data: object) {
 
     const user = (await UserModel.findOne(value, userReturnFormat))?._doc
     errorHelper.getError(user)
-    return {
-        result: user
-    }
+    return user
 }
 
 export async function getUsers(data: object) {
@@ -27,9 +25,7 @@ export async function getUsers(data: object) {
     }
     errorHelper.getAllError(users)
 
-    return {
-        result: users.map((item) => item._doc)
-    }
+    return users.map((item) => item._doc)
 }
 
 export async function getUsersByName(params: any) {
@@ -46,7 +42,5 @@ export async function getUsersByName(params: any) {
 
     errorHelper.getAllError(users)
 
-    return {
-        result: users.map((item) => item._doc)
-    }
+    return users.map((item) => item._doc)
 }

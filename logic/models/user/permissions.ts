@@ -2,14 +2,14 @@ import { validate } from '../../helpers/validator'
 import * as validators from '../../validators/user'
 import * as types from '../../types/user'
 
-import { User, UserModel } from '../../../database/models/user'
+import { UserModel } from '../../../database/models/user'
 import { getUser } from './get'
 
 import { errorHelper } from './common'
 
 export async function addPermission(data: object) {
     const value = validate(data, validators.addPermission) as types.addPermission
-    const user = (await getUser({ id: value.id })).result!
+    const user = await getUser({ id: value.id })
 
     let tempPermissions = user.permissions
     let permissionAdded = false
@@ -39,16 +39,12 @@ export async function addPermission(data: object) {
         throw new Error('Permission already exist!')
     }
 
-    return {
-        result: permissionAdded,
-        message: 'Permission added'
-    }
+    return permissionAdded
 }
 
 export async function removePermission(data: object) {
     const value = validate(data, validators.removePermission) as types.removePermission
-    const user = (await getUser({ id: value.id })).result!
-
+    const user = await getUser({ id: value.id })
     let tempPermissions = user.permissions
     let permissionRemoved = false
 
@@ -67,10 +63,7 @@ export async function removePermission(data: object) {
     const result = await UserModel.updateOne({ id: value.id }, { permissions: user.permissions })
     errorHelper.updateError(result)
 
-    return {
-        result: permissionRemoved,
-        message: 'Permission removed'
-    }
+    return permissionRemoved
 }
 
 export async function getPermissions(params: any) {
@@ -84,7 +77,5 @@ export async function getPermissions(params: any) {
     )
     errorHelper.getError(user)
 
-    return {
-        result: user!.permissions
-    }
+    return user!.permissions
 }

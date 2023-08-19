@@ -10,8 +10,6 @@ import { filter } from '../../helpers/filter'
 
 import { errorHelper, userReturnFormat } from './common'
 
-import { rename } from '../../helpers/filter'
-
 export async function register(data: object) {
     const value = validate(data, validators.register) as types.register
 
@@ -23,9 +21,7 @@ export async function register(data: object) {
 
     user = await UserModel.findById(user._id, userReturnFormat)
     errorHelper.getError(user)
-    return {
-        result: user
-    }
+    return user
 }
 
 export async function login(data: object) {
@@ -38,9 +34,7 @@ export async function login(data: object) {
         throw new Error('password not valid')
     }
 
-    return {
-        result: filter(user!._doc, ['password'])
-    }
+    return filter(user!._doc, ['password'])
 }
 
 import { decode } from '../../helpers/JWT'
