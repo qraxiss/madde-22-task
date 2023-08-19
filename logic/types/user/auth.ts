@@ -4,21 +4,26 @@
  */
 
 export interface getToken {
-  id: string;
-  moduleName: string;
+  query: {
+    id: string;
+  };
 }
 
 export interface login {
-  email: string;
-  password: string;
+  body: {
+    password: string;
+    username: string;
+  };
 }
 
 export interface register {
-  birthDate: Date;
-  email: string;
-  id?: string;
-  name: string;
-  password: string;
-  phone: string;
-  surname: string;
+  body: {
+    birthDate: Date;
+    id?: string;
+    name: string;
+    password: string;
+    phone: string;
+    surname: string;
+    username: string;
+  };
 }

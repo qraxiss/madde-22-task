@@ -6,22 +6,22 @@ import * as types from '../../types/user'
 import { UserModel } from '../../../database/models/user'
 import { errorHelper, userReturnFormat } from './common'
 
-export async function getUser(data: object) {
-    const value = validate(data, validators.getUser) as types.getUser
+export async function getUser(params: types.getUser) {
+    params = validate(params, validators.getUser)
 
-    const user = (await UserModel.findOne(value, userReturnFormat))?._doc
+    const user = (await UserModel.findOne(params, userReturnFormat))?._doc
     errorHelper.getError(user)
     return user
 }
 
-export async function getUsers(data: object) {
-    const value = validate(data, validators.getUsers) as types.getUsers
+export async function getUsers(params: types.getUsers) {
+    params = validate(params, validators.getUsers)
 
     var users
-    if (value.ids) {
-        users = await UserModel.find({ id: { $in: value.ids } }, userReturnFormat)
+    if (params.query.ids) {
+        users = await UserModel.find({ id: { $in: params.query.ids } }, userReturnFormat)
     } else {
-        users = await UserModel.find(value, userReturnFormat)
+        users = await UserModel.find(params, userReturnFormat)
     }
     errorHelper.getAllError(users)
 
@@ -29,7 +29,7 @@ export async function getUsers(data: object) {
 }
 
 export async function getUsersByName(params: any) {
-    const value = validate(params, validators.getUsersByName) as types.getUsersByName
+    params = validate(params, validators.getUsersByName)
 
     const returnFormat = {
         name: 1,
@@ -38,7 +38,7 @@ export async function getUsersByName(params: any) {
         _id: 0
     }
     //starts with string
-    const users = await UserModel.find({ name: { $regex: '^' + value.string, $options: 'i' } }, returnFormat)
+    const users = await UserModel.find({ name: { $regex: '^' + params.string, $options: 'i' } }, returnFormat)
 
     errorHelper.getAllError(users)
 

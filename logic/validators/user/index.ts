@@ -8,6 +8,6 @@ export const user = Joi.object({
     id: Joi.string().required(),
     name: Joi.string().required(),
     surname: Joi.string().required(),
-    email: Joi.string().required(),
+    username: Joi.string().required(),
     permissions: Joi.any().required()
 })

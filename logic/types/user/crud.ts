@@ -4,21 +4,27 @@
  */
 
 export interface getUser {
-  id: string;
+  query: {
+    id: string;
+  };
 }
 
 export interface getUsers {
-  ids?: string[];
+  query: {
+    ids?: string[];
+  };
 }
 
 export interface getUsersByName {
-  string: string;
+  query: {
+    string: string;
+  };
 }
 
 export interface user {
-  email: string;
   id: string;
   name: string;
   permissions?: any;
   surname: string;
+  username: string;
 }

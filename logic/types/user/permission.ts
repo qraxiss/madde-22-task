@@ -4,19 +4,31 @@
  */
 
 export interface addPermission {
-  id: string;
-  permissionPath: string[];
+  body: {
+    permissionPath: string[];
+  };
+  query: {
+    id: string;
+  };
 }
 
 export interface getPermission {
-  id: string;
+  query: {
+    id: string;
+  };
 }
 
 export interface getPermissions {
-  ids: string[];
+  query: {
+    ids?: string[];
+  };
 }
 
 export interface removePermission {
-  id: string;
-  permissionPath: string[];
+  body: {
+    permissionPath: string[];
+  };
+  query: {
+    id: string;
+  };
 }

@@ -3,10 +3,8 @@
  * Do not modify this file manually
  */
 
-export type email = string;
-
 export type id = string;
 
 export type phone = string;
 
-export type socialSecurityNumber = string;
+export type username = string;

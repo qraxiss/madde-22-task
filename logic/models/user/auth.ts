@@ -10,39 +10,40 @@ import { filter } from '../../helpers/filter'
 
 import { errorHelper, userReturnFormat } from './common'
 
-export async function register(data: object) {
-    const value = validate(data, validators.register) as types.register
+import { decode, encode } from '../../helpers/JWT'
+
+export async function register(params: types.register) {
+    params = validate(params, validators.register)
 
     const salt = await bcrypt.genSalt(10)
-    value.password = await bcrypt.hash(value.password, salt)
+    params.body.password = await bcrypt.hash(params.body.password, salt)
 
-    var user = (await UserModel.create(value)).toObject() as any
+    var user = (await UserModel.create(params.body)).toObject() as any
     errorHelper.createError(user)
 
     user = await UserModel.findById(user._id, userReturnFormat)
     errorHelper.getError(user)
-    return user
+    return !!user
 }
 
-export async function login(data: object) {
-    const value = validate(data, validators.login) as types.login
+export async function login(params: types.login) {
+    params = validate(params, validators.login)
 
-    var user = await UserModel.findOne({ email: value.email }, { ...userReturnFormat, password: 1 })
+    var user = await UserModel.findOne({ username: params.body.username }, { ...userReturnFormat, password: 1 })
     errorHelper.getError(user)
 
-    if (!(await bcrypt.compare(value.password, user!.password))) {
+    if (!(await bcrypt.compare(params.body.password, user!.password))) {
         throw new Error('password not valid')
     }
 
-    return filter(user!._doc, ['password'])
+    return {
+        token: encode(user!.toObject())
+    }
 }
 
-import { decode } from '../../helpers/JWT'
-
-export function getUserFromToken(token: string): types.user {
+export function getUserFromToken(token: string) {
     const result = decode(token)
     let { iat, exp, ...data } = result
-    const value = validate(data, validators.user)
 
-    return value
+    return data
 }

@@ -1,23 +1,28 @@
 import * as Joi from 'joi'
 
-import { email, phone, id } from './common'
+import { username, phone, id } from './common'
 
 export const login = Joi.object({
-    email: email.required(),
-    password: Joi.string().required()
+    body: Joi.object({
+        username: username.required(),
+        password: Joi.string().required()
+    }).required()
 })
 
 export const register = Joi.object({
-    email: email.required(),
-    password: Joi.string().required(),
-    name: Joi.string().required(),
-    surname: Joi.string().required(),
-    phone: phone.required(),
-    birthDate: Joi.date().required(),
-    id: id
+    body: Joi.object({
+        username: username.required(),
+        password: Joi.string().required(),
+        name: Joi.string().required(),
+        surname: Joi.string().required(),
+        phone: phone.required(),
+        birthDate: Joi.date().required(),
+        id: id
+    }).required()
 })
 
 export const getToken = Joi.object({
-    id: id.required(),
-    moduleName: Joi.string().required()
+    query: Joi.object({
+        id: id.required()
+    }).required()
 })

@@ -4,59 +4,82 @@
  */
 
 export interface addPermission {
-  id: string;
-  permissionPath: string[];
+  body: {
+    permissionPath: string[];
+  };
+  query: {
+    id: string;
+  };
 }
 
 export interface getPermission {
-  id: string;
+  query: {
+    id: string;
+  };
 }
 
 export interface getPermissions {
-  ids: string[];
+  query: {
+    ids?: string[];
+  };
 }
 
 export interface getToken {
-  id: string;
-  moduleName: string;
+  query: {
+    id: string;
+  };
 }
 
 export interface getUser {
-  id: string;
+  query: {
+    id: string;
+  };
 }
 
 export interface getUsers {
-  ids?: string[];
+  query: {
+    ids?: string[];
+  };
 }
 
 export interface getUsersByName {
-  string: string;
+  query: {
+    string: string;
+  };
 }
 
 export interface login {
-  email: string;
-  password: string;
+  body: {
+    password: string;
+    username: string;
+  };
 }
 
 export interface register {
-  birthDate: Date;
-  email: string;
-  id?: string;
-  name: string;
-  password: string;
-  phone: string;
-  surname: string;
+  body: {
+    birthDate: Date;
+    id?: string;
+    name: string;
+    password: string;
+    phone: string;
+    surname: string;
+    username: string;
+  };
 }
 
 export interface removePermission {
-  id: string;
-  permissionPath: string[];
+  body: {
+    permissionPath: string[];
+  };
+  query: {
+    id: string;
+  };
 }
 
 export interface user {
-  email: string;
   id: string;
   name: string;
   permissions: any;
   surname: string;
+  username: string;
 }
