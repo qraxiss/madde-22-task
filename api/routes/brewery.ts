@@ -1,6 +1,6 @@
 import { BreweryController } from '../controllers/brewery'
 import { Router } from 'express'
 
-const router = Router()
+export const router = Router()
 
-router.get('/middleware', BreweryController.middleware)
+router.use('/middleware', BreweryController.middleware)

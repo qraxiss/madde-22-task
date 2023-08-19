@@ -4,10 +4,18 @@ import { validate } from '../helpers/validator'
 
 import axios from 'axios'
 
+const instance = axios.create({
+    baseURL: 'https://api.openbrewerydb.org/v1/breweries'
+})
+
 export async function middleware(params: types.middleware) {
     params = validate(params, validators.middleware) as types.middleware
-
-    const response = await axios.request({ ...params, url: 'https://api.openbrewerydb.org/v1/breweries' + params.path })
+    const response = await instance.request({
+        url: params.path,
+        method: params.method,
+        params: params.query,
+        data: params.body
+    })
 
     return {
         data: response.data,

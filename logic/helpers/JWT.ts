@@ -14,3 +14,7 @@ export function decode(token: string) {
         throw new ForbiddenError(error.message)
     }
 }
+
+export function encode(data: object, expiresIn: string = '10s') {
+    return JWT.sign(data, config.MODULE_KEY, { expiresIn: expiresIn })
+}

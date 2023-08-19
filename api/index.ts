@@ -38,11 +38,11 @@ app.use((req, res, next) => {
 })
 
 // routes
-import { router as authRouter } from './routes/auth'
-import { router as sampleRouter } from './routes/sample'
+import { router as breweryRouter } from './routes/brewery'
+import { router as userRouter } from './routes/user'
 
-app.use('/auth', authRouter)
-app.use('/sample', sampleRouter)
+app.use('/brewery', breweryRouter)
+app.use('/user', userRouter)
 
 // Error Handling
 app.use(status500)
