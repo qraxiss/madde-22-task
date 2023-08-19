@@ -3,7 +3,7 @@ import { ErrorHelper } from '../../helpers/error'
 export const errorHelper = new ErrorHelper('User')
 
 export const userReturnFormat = {
-    email: 1,
+    username: 1,
     id: 1,
     name: 1,
     surname: 1,

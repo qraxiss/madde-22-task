@@ -9,7 +9,7 @@ import RandExp from 'randexp'
  *
  *
  * @property {string} id - User id
- * @property {string} email - User email
+ * @property {string} username - User username
  * @property {string} password - User password
  * @property {string} name - User name
  * @property {string} surname - User surname
@@ -49,7 +49,7 @@ export class User {
     public id!: string // REGEX :
 
     @prop({ required: true, unique: true })
-    public email!: string
+    public username!: string
 
     @prop({ required: true })
     public password!: string
